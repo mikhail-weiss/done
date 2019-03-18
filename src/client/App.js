@@ -3,21 +3,29 @@ import './app.css';
 import ReactImage from './react.png';
 
 export default class App extends Component {
-  state = { username: null };
+  state = { body: {} };
 
   componentDidMount() {
-    fetch('/api/getUsername')
+    fetch('/api/github')
       .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
+      .then(user => this.setState({ body: user }));
   }
 
   render() {
-    const { username } = this.state;
+    const { body } = this.state;
     return (
-      <div>
-        {username ? <h1>{`Hello ${username}!`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
+
+      <table>
+        <tbody>{Object.entries(body).map(([a, b], key) => {
+          return (
+            <tr key={key}>
+              <td>{a}</td>
+              <td>{b}</td>
+            </tr>
+          )
+
+        })}</tbody>
+      </table>
     );
   }
 }

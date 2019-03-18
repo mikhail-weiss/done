@@ -51,6 +51,6 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
     res.redirect(req.session.returnTo || '/');
 });
-app.get('/api/github', isAuthenticated, isAuthorized, api.getGithub);
+app.get('/api/github', api.getGithub);
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
