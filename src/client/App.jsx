@@ -3,23 +3,25 @@ import './app.css';
 import Histogram from './Histogram';
 
 export default () => {
-  const [data, setData] = useState({ body: {} });
+  const [data, setData] = useState({ });
   const params = {
-    bins: 10,
     width: 500,
-    height: 500,
-    axisMargin: 83,
-    bottomMargin: 5
+    height: 500
   };
 
   useEffect(() => fetch('/api/github')
     .then(res => res.json())
     .then(user => setData({ body: user })), []);
 
+  if (data.body) {
+    return (
+      <svg width="1100" height="500">
+        <Histogram {...params} x={500} y={10} data={data.body} />
+      </svg>
+    );
+  }
   return (
-    <svg width="1100" height="500">
-      <Histogram {...params} x={500} y={10} data={data.body} />
-    </svg>
+    <span>Loading</span>
   );
 };
 
