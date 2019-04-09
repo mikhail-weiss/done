@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import { LineChart, Line } from 'recharts';
 
 const Bar = ({
   x, y, width, height
@@ -67,7 +68,6 @@ class Histogram extends Component {
     //   .scale(y)
     //   .orient('left')
     //   .ticks(10);
-
   }
 
   makeBar(bar) {
@@ -86,14 +86,11 @@ class Histogram extends Component {
   render() {
     // const translate = `translate(${this.props.x}, ${this.props.y})`;
     // const bars = this.histogram(this.props.data);
-
+    const data = [];
     return (
-      <g className="histogram">
-        <g className="bars">
-          {this.props.data.map(this.makeBar.bind(this))}
-        </g>
-        {/* <Axis x={this.props.axisMargin - 3} y={0} data={bars} scale={this.yScale} /> */}
-      </g>
+      <LineChart width={400} height={400} data={data}>
+        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+      </LineChart>
     );
   }
 }
