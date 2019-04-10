@@ -19,6 +19,7 @@ export default () => {
       .then(commits => commits.sort(
         (commit1, commit2) => new Date(commit1.date).getTime() - new Date(commit2.date).getTime()
       ))
+      .then(commits => commits.filter(commit => commit.value < 1000))      
       .then(commits => setData(commits));
   }, []);
 
