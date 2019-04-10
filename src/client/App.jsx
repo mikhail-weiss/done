@@ -3,29 +3,12 @@ import './app.css';
 // import Histogram from './Histogram';
 import Linechart from './Linechart';
 
-// const staticData = [
-//   {
-//     name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-//   },
-//   {
-//     name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-//   },
-//   {
-//     name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
-//   },
-//   {
-//     name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-//   },
-//   {
-//     name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-//   },
-//   {
-//     name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-//   },
-//   {
-//     name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-//   },
-// ];
+// [
+//   { "date": "2019-03-22", "value": 192 },
+//   { "date": "2019-03-18", "value": 28 },
+//   { "date": "2019-03-20", "value": 60528 },
+//   { "date": "2019-04-09", "value": 284 }
+// ]
 
 export default () => {
   const [data, setData] = useState([]);
@@ -33,6 +16,9 @@ export default () => {
   useEffect(() => {
     fetch('/api/github')
       .then(res => res.json())
+      .then(commits => commits.sort(
+        (commit1, commit2) => new Date(commit1.date).getTime() - new Date(commit2.date).getTime()
+      ))
       .then(commits => setData(commits));
   }, []);
 
@@ -45,17 +31,3 @@ export default () => {
     <span>Loading</span>
   );
 };
-
-
-// <table>
-//   <tbody>{Object.entries(body).map(([a, b], key) => {
-//     return (
-//       <tr key={key}>
-//         <td>{a}</td>
-//         <td>{b}</td>
-//       </tr>
-//     )
-
-//   })}
-//   </tbody>
-// </table>
