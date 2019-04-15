@@ -1,10 +1,20 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["airbnb"],
   "env": {
     "browser": true,
+    "commonjs": true,
+    "es6": true,
     "node": true
   },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb"
+  ],
   "rules": {
     "no-console": "off",
     "comma-dangle": "off",

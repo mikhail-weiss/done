@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "es6",
+      "jsx": "react",
+      "checkJs": true
+
+    },
+    "exclude": [
+      "node_modules"
+    ],
+    "include": [
+      "src/client/**/*"
+  ]
+
+}
+  

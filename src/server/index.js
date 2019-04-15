@@ -23,6 +23,7 @@ const api = require('./api');
 //     res.redirect(`/auth/${provider}`);
 //   }
 // };
+test();
 
 passport.use(new Strategy({
   clientID: process.env.GITHUB_ID,
@@ -46,8 +47,10 @@ app.use(express.static('dist'));
 app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
 app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
+  res.redirect(req.session.returnTo || '/api/github');
 });
-app.get('/api/github', api.getGithub);
+
+
+app.get('/api/github', ensureLoggedIn('/auth/github'), api.getGithub);
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

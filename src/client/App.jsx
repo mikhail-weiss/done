@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './app.css';
-// import Histogram from './Histogram';
-import Linechart from './Linechart';
 
 // [
 //   { "date": "2019-03-22", "value": 192 },
@@ -12,14 +10,13 @@ import Linechart from './Linechart';
 
 export default () => {
   const [data, setData] = useState([]);
-
+  useContext
   useEffect(() => {
     fetch('/api/github')
       .then(res => res.json())
       .then(commits => commits.sort(
         (commit1, commit2) => new Date(commit1.date).getTime() - new Date(commit2.date).getTime()
       ))
-      .then(commits => commits.filter(commit => commit.value < 1000))      
       .then(commits => setData(commits));
   }, []);
 
